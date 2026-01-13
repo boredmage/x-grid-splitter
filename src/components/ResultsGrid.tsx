@@ -60,6 +60,8 @@ const ResultsGrid: React.FC<ResultsGridProps> = ({
             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
               <button
                 onClick={() => downloadImage(src, `x-grid-part-${idx + 1}.png`)}
+                name={`download-slice-${idx + 1}`}
+                aria-label={`Download slice ${idx + 1}`}
                 className="bg-white text-slate-900 px-3 py-1.5 rounded-full font-medium text-xs flex items-center gap-1.5 hover:scale-105 transition-transform shadow-lg"
               >
                 <Download className="w-3 h-3" />
@@ -77,6 +79,8 @@ const ResultsGrid: React.FC<ResultsGridProps> = ({
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 w-full">
         <button
           onClick={onReset}
+          name="start-over"
+          aria-label="Start over and upload a new image"
           className="w-full sm:w-auto px-4 py-2 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-1.5 text-sm font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -85,6 +89,8 @@ const ResultsGrid: React.FC<ResultsGridProps> = ({
 
         <button
           onClick={handleDownloadAll}
+          name="download-all"
+          aria-label="Download all generated slices"
           className="w-full sm:w-auto px-5 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white shadow-md shadow-indigo-500/20 transition-all flex items-center justify-center gap-1.5 text-sm font-semibold"
         >
           <Share2 className="w-4 h-4" />

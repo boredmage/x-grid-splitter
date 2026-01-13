@@ -202,6 +202,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
           <div className="flex items-center gap-2 bg-slate-900 p-1 rounded-lg border border-slate-800">
             <button
               onClick={() => setSliceMode("stack")}
+              name="mode-stack"
+              aria-label="Switch slice mode to stacked thread view"
               className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                 sliceMode === "stack"
                   ? "bg-indigo-600 text-white shadow-sm"
@@ -213,6 +215,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
             </button>
             <button
               onClick={() => setSliceMode("grid")}
+              name="mode-grid"
+              aria-label="Switch slice mode to 2x2 grid"
               className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
                 sliceMode === "grid"
                   ? "bg-indigo-600 text-white shadow-sm"
@@ -243,6 +247,12 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
                 <button
                   key={r}
                   onClick={() => handleRatioChange(r)}
+                  name={`ratio-${r}`}
+                  aria-label={
+                    r === "original"
+                      ? "Set aspect ratio to original (auto)"
+                      : `Set aspect ratio to ${r}`
+                  }
                   className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors whitespace-nowrap ${
                     currentRatio === r
                       ? "bg-indigo-600 text-white shadow-sm"
@@ -260,6 +270,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
         <div className="flex items-center gap-2 bg-slate-900 p-1 rounded-lg border border-slate-800 shrink-0">
           <button
             onClick={() => handleZoom(-0.05)}
+            name="zoom-out"
+            aria-label="Zoom out image"
             className="px-2 py-1.5 hover:bg-slate-700 rounded-md text-slate-300"
           >
             <ZoomOut className="w-4 h-4" />
@@ -269,6 +281,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
           </span>
           <button
             onClick={() => handleZoom(0.05)}
+            name="zoom-in"
+            aria-label="Zoom in image"
             className="px-2 py-1.5 hover:bg-slate-700 rounded-md text-slate-300"
           >
             <ZoomIn className="w-4 h-4" />
@@ -276,6 +290,8 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
           <div className="w-px h-6 bg-slate-700 mx-1"></div>
           <button
             onClick={() => handleRatioChange(currentRatio)}
+            name="reset-position"
+            aria-label="Reset image position"
             className="px-2 py-1.5 hover:bg-slate-700 rounded-md text-slate-300"
             title="Reset Position"
           >
@@ -324,12 +340,16 @@ const ImageEditor: React.FC<ImageEditorProps> = ({
       <div className="flex gap-3 mt-6">
         <button
           onClick={onCancel}
+          name="change-image"
+          aria-label="Change source image"
           className="px-4 py-1.5 rounded-md text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors font-medium cursor-pointer"
         >
           Change Image
         </button>
         <button
           onClick={() => onConfirm(offset, scale, canvasDims, sliceMode)}
+          name="confirm-slice"
+          aria-label="Generate sliced images"
           className="px-5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold shadow-md shadow-indigo-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
         >
           <Check className="w-4 h-4" />
