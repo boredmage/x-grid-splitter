@@ -9,21 +9,24 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelected }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const processFile = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      setError('Please upload a valid image file (JPG, PNG, WebP).');
-      return;
-    }
-    
-    setError(null);
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        onImageSelected(e.target.result as string);
+  const processFile = useCallback(
+    (file: File) => {
+      if (!file.type.startsWith('image/')) {
+        setError('Please upload a valid image file (JPG, PNG, WebP).');
+        return;
       }
-    };
-    reader.readAsDataURL(file);
-  };
+
+      setError(null);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          onImageSelected(e.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    },
+    [onImageSelected]
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -35,13 +38,16 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelected }) => {
     setIsDragging(false);
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      processFile(e.dataTransfer.files[0]);
-    }
-  }, []);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragging(false);
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        processFile(e.dataTransfer.files[0]);
+      }
+    },
+    [processFile]
+  );
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -83,7 +89,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelected }) => {
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs text-slate-500 mt-4 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-800">
-            <ImageIcon className="w-3 h-3" />
+            <ImageIcon className="w-3 h-3 shrink-0" />
             <span>Recommended high resolution</span>
           </div>
         </div>
