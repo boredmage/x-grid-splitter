@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Twitter } from "lucide-react";
 import ImageUploader from "./components/ImageUploader";
 import ImageEditor from "./components/ImageEditor";
 import ResultsGrid from "./components/ResultsGrid";
@@ -100,8 +101,17 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="w-full border-t border-white/5 py-6">
-        <div className="text-center text-slate-500 text-sm">
-          &copy; {new Date().getFullYear()} X-Grid Splitter
+        <div className="text-center text-slate-500 text-sm flex items-center justify-center gap-4">
+          <span>&copy; {new Date().getFullYear()} X-Grid Splitter</span>
+          <a
+            href="https://x.com/overboredmage"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow on X (Twitter)"
+            className="text-slate-500 hover:text-slate-300 transition-colors"
+          >
+            <Twitter className="w-4 h-4" />
+          </a>
         </div>
       </footer>
     </div>
